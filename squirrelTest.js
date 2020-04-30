@@ -1,15 +1,15 @@
 function it(label, test) {
-  console.log(label);
+  messageToDOM(label);
   test();
 }
 
 function expect(conditionUnderTest) {
   toEqual: function toEqual(expectedResult) {
-    conditionUnderTest === expectedResult ? console.log("Passed") : console.log("Failed");
+    conditionUnderTest === expectedResult ? messageToDOM("- Passed") : messageToDOM("- Failed");
   }
 
   toNotEqual: function toNotEqual(expectedResult) {
-    conditionUnderTest !== expectedResult ? console.log("Passed") : console.log("Failed");
+    conditionUnderTest !== expectedResult ? messageToDOM("- Passed") : messageToDOM("- Failed");
   }
 
   return { 
@@ -18,18 +18,6 @@ function expect(conditionUnderTest) {
   };
 }
 
-it("confirms that 3 is equal to 2 + 1", () => {
-  expect(3).toEqual(2 + 1);
-});
-
-it("confirms that 4 is equal to 2 + 1", () => {
-  expect(4).toEqual(2 + 1);
-});
-
-it("confirms that 4 is not equal to 2 + 1", () => {
-  expect(4).toNotEqual(2 + 1);
-});
-
-it("confirms that 4 is not equal to 2 + 1", () => {
-  expect(3).toNotEqual(2 + 1);
-});
+function messageToDOM(message) {
+  document.getElementById("test-results").innerHTML += `<div>${message}</div>`;
+}
