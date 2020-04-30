@@ -12,9 +12,37 @@ function expect(conditionUnderTest) {
     conditionUnderTest !== expectedResult ? messageToDOM("- Passed") : messageToDOM("- Failed");
   }
 
+  toThrowError: function toThrowError(expectedResult) {
+    try {
+      conditionUnderTest();
+    } catch(e) {
+      if (e === expectedResult) {
+        messageToDOM("- Passed");
+        return;
+      }
+    }
+
+    messageToDOM("- Failed");
+  }
+
+  toNotThrowError: function toNotThrowError(expectedResult) {
+    try {
+      conditionUnderTest();
+    } catch(e) {
+      if (e === expectedResult) {
+        messageToDOM("- Failed");
+        return;
+      }
+    }
+
+    messageToDOM("- Passed");
+  }
+
   return { 
     toEqual: toEqual,
-    toNotEqual: toNotEqual
+    toNotEqual: toNotEqual,
+    toThrowError: toThrowError,
+    toNotThrowError: toNotThrowError
   };
 }
 

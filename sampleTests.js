@@ -31,3 +31,21 @@ it("allows you to stub a method in an object that returns a value", () => {
   stub(obj, "hello", "Goodbye");
   expect(obj.hello()).toEqual("Goodbye");
 });
+
+it("confirms when a specific error has been thrown", () => {
+  function throwError(confirmThrow) {
+    if (confirmThrow) { 
+      throw "An error was thrown";
+    }
+  }
+  expect(() => { throwError(true) }).toThrowError("An error was thrown");
+});
+
+it("confirms when a specific error has not been thrown", () => {
+  function throwError(confirmThrow) {
+    if (confirmThrow) { 
+      throw "An error was chucked";
+    }
+  }
+  expect(() => { throwError(true) }).toNotThrowError("An error was thrown");
+});
