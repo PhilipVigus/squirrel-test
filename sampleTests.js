@@ -10,7 +10,7 @@ it("confirms that 4 is not equal to 2 + 1", () => {
   expect(4).toNotEqual(2 + 1);
 });
 
-it("confirms that 4 is not equal to 2 + 1", () => {
+it("confirms that 3 is not equal to 2 + 1", () => {
   expect(3).toNotEqual(2 + 1);
 });
 
@@ -21,4 +21,13 @@ it("allows you to stub a method in an object", () => {
 
   stub(obj, "hello");
   expect(obj.hello()).toEqual(undefined);
+});
+
+it("allows you to stub a method in an object that returns a value", () => {
+  const obj = {
+    hello: function() { return "Hello"; }
+  };
+
+  stub(obj, "hello", "Goodbye");
+  expect(obj.hello()).toEqual("Goodbye");
 });

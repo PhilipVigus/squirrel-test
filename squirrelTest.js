@@ -18,8 +18,12 @@ function expect(conditionUnderTest) {
   };
 }
 
-function stub(obj, methodName) {
-  obj[methodName] = function() {};
+function stub(obj, methodName, returnValue) {
+  if (returnValue === undefined) {
+    obj[methodName] = function() {};
+  } else {
+    obj[methodName] = function() { return returnValue };
+  }
 }
 
 function messageToDOM(message) {
