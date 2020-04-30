@@ -1,3 +1,5 @@
+import { it, expect, stub } from "./squirrelTest.js";
+
 it("confirms that 3 is equal to 2 + 1", () => {
   expect(3).toEqual(2 + 1);
 });

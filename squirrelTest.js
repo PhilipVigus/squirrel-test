@@ -1,18 +1,22 @@
-function it(label, test) {
+function messageToDOM(message) {
+  document.getElementById("test-results").innerHTML += `<div>${message}</div>`;
+}
+
+export function it(label, test) {
   messageToDOM(label);
   test();
 }
 
-function expect(conditionUnderTest) {
-  toEqual: function toEqual(expectedResult) {
+export function expect(conditionUnderTest) {
+  function toEqual(expectedResult) {
     conditionUnderTest === expectedResult ? messageToDOM("- Passed") : messageToDOM("- Failed");
   }
 
-  toNotEqual: function toNotEqual(expectedResult) {
+  function toNotEqual(expectedResult) {
     conditionUnderTest !== expectedResult ? messageToDOM("- Passed") : messageToDOM("- Failed");
   }
 
-  toThrowError: function toThrowError(expectedResult) {
+  function toThrowError(expectedResult) {
     try {
       conditionUnderTest();
     } catch(e) {
@@ -25,7 +29,7 @@ function expect(conditionUnderTest) {
     messageToDOM("- Failed");
   }
 
-  toNotThrowError: function toNotThrowError(expectedResult) {
+  function toNotThrowError(expectedResult) {
     try {
       conditionUnderTest();
     } catch(e) {
@@ -46,14 +50,10 @@ function expect(conditionUnderTest) {
   };
 }
 
-function stub(obj, methodName, returnValue) {
+export function stub(obj, methodName, returnValue) {
   if (returnValue === undefined) {
     obj[methodName] = function() {};
   } else {
     obj[methodName] = function() { return returnValue };
   }
-}
-
-function messageToDOM(message) {
-  document.getElementById("test-results").innerHTML += `<div>${message}</div>`;
 }
