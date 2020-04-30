@@ -18,6 +18,10 @@ function expect(conditionUnderTest) {
   };
 }
 
+function stub(obj, methodName) {
+  obj[methodName] = function() {};
+}
+
 function messageToDOM(message) {
   document.getElementById("test-results").innerHTML += `<div>${message}</div>`;
 }
